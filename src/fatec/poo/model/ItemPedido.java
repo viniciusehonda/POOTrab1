@@ -5,9 +5,11 @@ package fatec.poo.model;
  * @author honda
  */
 public class ItemPedido {
-    int numeroItem;
-    int qtdeVendida;
+    private int numeroItem;
+    private int qtdeVendida;
     private Produto produto;
+    private Pedido pedido;
+    
     
     public ItemPedido(int numeroItem, int qtdeVendida) {
         this.numeroItem = numeroItem;
@@ -28,11 +30,14 @@ public class ItemPedido {
     
     public void setProduto(Produto p) {
        produto = p;
-       produto.qtdeDisponivel = produto.getQtdeDisponivel() - this.qtdeVendida;
+       produto.setQtdeDisponivel(produto.getQtdeDisponivel() - this.qtdeVendida);
     }
     
     public double getValorTotal() {
-        return produto.precoUnit * this.qtdeVendida;
+        return produto.getPrecoUnit() * this.qtdeVendida;
     }   
     
+    public void setPedido(Pedido p) {
+        pedido = p;
+    }
 }
