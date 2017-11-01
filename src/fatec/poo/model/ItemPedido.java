@@ -8,7 +8,7 @@ public class ItemPedido {
     private int numeroItem;
     private int qtdeVendida;
     private Produto produto;
-    private Pedido pedidO;
+    private Pedido pedido;
     
     
     public ItemPedido(int numeroItem, int qtdeVendida) {
@@ -30,7 +30,7 @@ public class ItemPedido {
     
     public void setProduto(Produto p) {
        produto = p;
-       produto.setQtdeDisponivel(produto.getQtdeDisponivel() - this.qtdeVendida);
+       produto.setQtdeDisponivel(produto.getQtdeDisponivel() - this.qtdeVendida);  //TRATAR ISSO NO APLIC
     }
     
     public double getValorTotal() {
