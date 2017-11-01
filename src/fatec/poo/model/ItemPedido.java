@@ -8,7 +8,7 @@ public class ItemPedido {
     private int numeroItem;
     private int qtdeVendida;
     private Produto produto;
-    private Pedido pedido;
+    private Pedido pedidO;
     
     
     public ItemPedido(int numeroItem, int qtdeVendida) {
