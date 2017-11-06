@@ -9,7 +9,7 @@ public class Produto {
     private String descricao;
     private int qtdeDisponivel;
     private double precoUnit;
-    private int estoqueMin;
+    private int estoqueMin;//FAZER VERIFICAÇÃO FUTURAMENTE
     
     public Produto(int codigo, String descricao) {
         this.codigo = codigo;
