@@ -46,8 +46,10 @@ public class Pedido {
     }
     
     public void addItemPedido(ItemPedido itp) {
-        itemspedido.add(itp);
-        itp.setPedido(this);
+            itemspedido.add(itp);
+            itp.setPedido(this);
+            cliente.setLimiteDisp(cliente.getLimiteDisp() - itp.getValorTotal());
+        
     }
     
     public void setCliente(Cliente c){
