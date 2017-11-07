@@ -12,6 +12,10 @@ import fatec.poo.model.Vendedor;
  */
 public class Aplic {
     public static void main(String[] args) {
+        //FAZER MENU PARA ENTRADA (SE POSSÍVEL)
+        //INSTANCIAR CLASSES [ATRAVÉS DO MENU] COM DADOS "LIGADOS"
+        //FAZER LIGAÇÕES`ENTRE AS CLASSES (Métodos Add/Set<NomeClasse>)
+        
         //Instanciação dos clientes
         Cliente cli1 = new Cliente("12345", "João Pedro", 2000);
         
