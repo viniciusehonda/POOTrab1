@@ -27,21 +27,67 @@ public class GuiMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuCadastros = new javax.swing.JMenu();
+        jMenuItemClientes = new javax.swing.JMenuItem();
+        jMenuItemVendedores = new javax.swing.JMenuItem();
+        jMenuItemProdutos = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemSair = new javax.swing.JMenuItem();
+        jMenuPedido = new javax.swing.JMenu();
+        jMenuItemEmitirPedido = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Controle De Vendas");
+
+        jMenuCadastros.setText("Cadastros");
+
+        jMenuItemClientes.setText("Clientes");
+        jMenuCadastros.add(jMenuItemClientes);
+
+        jMenuItemVendedores.setText("Vendedores");
+        jMenuCadastros.add(jMenuItemVendedores);
+
+        jMenuItemProdutos.setText("Produtos");
+        jMenuCadastros.add(jMenuItemProdutos);
+        jMenuCadastros.add(jSeparator1);
+
+        jMenuItemSair.setText("Sair");
+        jMenuCadastros.add(jMenuItemSair);
+
+        jMenuBar1.add(jMenuCadastros);
+
+        jMenuPedido.setText("Pedido");
+
+        jMenuItemEmitirPedido.setText("Emitir Pedido");
+        jMenuItemEmitirPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEmitirPedidoActionPerformed(evt);
+            }
+        });
+        jMenuPedido.add(jMenuItemEmitirPedido);
+
+        jMenuBar1.add(jMenuPedido);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 279, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItemEmitirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEmitirPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemEmitirPedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +125,14 @@ public class GuiMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCadastros;
+    private javax.swing.JMenuItem jMenuItemClientes;
+    private javax.swing.JMenuItem jMenuItemEmitirPedido;
+    private javax.swing.JMenuItem jMenuItemProdutos;
+    private javax.swing.JMenuItem jMenuItemSair;
+    private javax.swing.JMenuItem jMenuItemVendedores;
+    private javax.swing.JMenu jMenuPedido;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
