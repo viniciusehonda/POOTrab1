@@ -39,20 +39,41 @@ public class GuiMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Controle De Vendas");
+        setResizable(false);
 
         jMenuCadastros.setText("Cadastros");
 
         jMenuItemClientes.setText("Clientes");
+        jMenuItemClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemClientesActionPerformed(evt);
+            }
+        });
         jMenuCadastros.add(jMenuItemClientes);
 
         jMenuItemVendedores.setText("Vendedores");
+        jMenuItemVendedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemVendedoresActionPerformed(evt);
+            }
+        });
         jMenuCadastros.add(jMenuItemVendedores);
 
         jMenuItemProdutos.setText("Produtos");
+        jMenuItemProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemProdutosActionPerformed(evt);
+            }
+        });
         jMenuCadastros.add(jMenuItemProdutos);
         jMenuCadastros.add(jSeparator1);
 
         jMenuItemSair.setText("Sair");
+        jMenuItemSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSairActionPerformed(evt);
+            }
+        });
         jMenuCadastros.add(jMenuItemSair);
 
         jMenuBar1.add(jMenuCadastros);
@@ -86,8 +107,24 @@ public class GuiMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemEmitirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEmitirPedidoActionPerformed
-        // TODO add your handling code here:
+        new GuiProduto().setVisible(true);
     }//GEN-LAST:event_jMenuItemEmitirPedidoActionPerformed
+
+    private void jMenuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClientesActionPerformed
+        new GuiCliente().setVisible(true);
+    }//GEN-LAST:event_jMenuItemClientesActionPerformed
+
+    private void jMenuItemVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVendedoresActionPerformed
+        new GuiVendedor().setVisible(true);
+    }//GEN-LAST:event_jMenuItemVendedoresActionPerformed
+
+    private void jMenuItemProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemProdutosActionPerformed
+        new GuiProduto().setVisible(true);
+    }//GEN-LAST:event_jMenuItemProdutosActionPerformed
+
+    private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_jMenuItemSairActionPerformed
 
     /**
      * @param args the command line arguments
