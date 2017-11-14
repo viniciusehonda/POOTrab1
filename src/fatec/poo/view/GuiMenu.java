@@ -40,6 +40,7 @@ public class GuiMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Controle De Vendas");
         setResizable(false);
+        setSize(new java.awt.Dimension(600, 300));
 
         jMenuCadastros.setText("Cadastros");
 
