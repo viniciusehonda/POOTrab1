@@ -66,6 +66,8 @@ public class DaoVendedor {
             
             ps.setString(10, vendedor.getCpf());
             
+            ps.execute();
+            
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
