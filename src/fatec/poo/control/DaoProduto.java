@@ -41,10 +41,13 @@ public class DaoProduto {
         PreparedStatement ps = null;
         
         try {
-            ps = conn.prepareStatement("UPDATE tbProduto set Desc_Prod = ? "
+            ps = conn.prepareStatement("UPDATE tbProduto set Qtde_Prod = ?, Pco_Prod = ?, MinEst_Prod = ? "
                     + "where Cod_Prod = ? ");
-            ps.setInt(1, produto.getCodigo());
-            ps.setString(2, produto.getDescricao());
+            
+            ps.setInt(1, produto.getQtdeDisponivel());
+            ps.setDouble(2, produto.getPrecoUnit());
+            ps.setInt(3, produto.getEstoqueMin());
+            ps.setInt(4, produto.getCodigo());
             
         } catch (SQLException ex) {
             System.out.println(ex.toString());
