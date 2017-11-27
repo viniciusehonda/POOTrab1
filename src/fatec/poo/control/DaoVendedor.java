@@ -32,9 +32,9 @@ public class DaoVendedor {
             ps.setString(3, vendedor.getEndereco());
             ps.setString(4, vendedor.getCidade());
             ps.setString(5, vendedor.getUf());
-            ps.setString(6, vendedor.getTelefone());
+            ps.setString(6, vendedor.getCep());
             ps.setString(7, vendedor.getDdd());
-            ps.setString(8, vendedor.getCep());
+            ps.setString(8, vendedor.getTelefone());
             ps.setDouble(9, vendedor.getSalarioBase());
             ps.setDouble(10, vendedor.getComissao());
             
