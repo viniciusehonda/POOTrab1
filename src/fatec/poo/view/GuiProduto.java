@@ -235,7 +235,7 @@ public class GuiProduto extends javax.swing.JFrame {
             btnAlterar.setEnabled(true);
             btnExcluir.setEnabled(true);
             txtCodigo.setEnabled(false);
-            
+            txtDescricao.setEnabled(true);
             txtQtdeDisp.setEnabled(true);
             txtPrecoUnit.setEnabled(true);
             txtEstoqueMin.setEnabled(true);
@@ -289,6 +289,7 @@ public class GuiProduto extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirmar Alteração ?") == 0) {
+            produto.setDescricao(txtDescricao.getText());
             produto.setEstoqueMin(Integer.parseInt(txtEstoqueMin.getText()));
             produto.setPrecoUnit(Double.parseDouble(txtPrecoUnit.getText()));
             produto.setQtdeDisponivel(Integer.parseInt(txtQtdeDisp.getText()));
