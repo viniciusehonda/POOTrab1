@@ -306,13 +306,14 @@ public class GuiCliente extends javax.swing.JFrame {
                 txtNumTel.setEnabled(true);
                 txtCEP.setEnabled(true);
                 txtLimCred.setEnabled(true);   
-                
+                txtNome.requestFocus();
             }
             else {
                 btnConsultar.setEnabled(false);
                 
                 jfmtCPF.setEnabled(false);
                 txtNome.setText(cliente.getNome());
+                txtNome.requestFocus();
                 txtEndereco.setText(cliente.getEndereco());
                 txtCidade.setText(cliente.getCidade());
                 cmbxUF.setSelectedItem(cliente.getUf());
