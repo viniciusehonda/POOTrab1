@@ -8,6 +8,8 @@ package fatec.poo.view;
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoCliente;
 import fatec.poo.control.DaoProduto;
+import fatec.poo.functions.ValidaCPF;
+import fatec.poo.functions.VerificaCPF;
 import fatec.poo.model.Cliente;
 import java.text.ParseException;
 import javax.swing.JFormattedTextField;
@@ -282,13 +284,22 @@ public class GuiCliente extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         boolean valid = true;
+        String cpf = jfmtCPF.getText();
+        cpf = cpf.replace(".", "");
+        cpf = cpf.replace("-", "");
+        //VerificaCPF Vcpf = new VerificaCPF(cpf);
+        String digitos;
         
+        if(ValidaCPF.isCPF(cpf) == false) {
+            valid = false;
+        } 
+      
         if (valid == false) {
             JOptionPane.showMessageDialog(null, "Cpf Inválido");
         }
         else {
             
-            String cpf = jfmtCPF.getText();
+            
             cpf = cpf.replace(".", "");
             cpf = cpf.replace("-", "");
             
