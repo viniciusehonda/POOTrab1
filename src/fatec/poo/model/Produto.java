@@ -16,6 +16,10 @@ public class Produto {
         this.descricao = descricao;
     }
 
+    public void setDescricao (String descricao) {
+        this.descricao = descricao;
+    }
+    
     public int getQtdeDisponivel() {
         return qtdeDisponivel;
     }

@@ -5,8 +5,13 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoCliente;
+import fatec.poo.control.DaoProduto;
+import fatec.poo.model.Cliente;
 import java.text.ParseException;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
@@ -62,6 +67,11 @@ public class GuiCliente extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(600, 300));
         setResizable(false);
         setSize(new java.awt.Dimension(600, 300));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("CPF");
 
@@ -127,14 +137,29 @@ public class GuiCliente extends javax.swing.JFrame {
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
@@ -256,12 +281,196 @@ public class GuiCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jfmtCPFActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // TODO add your handling code here:
+        boolean valid = true;
+        
+        if (valid == false) {
+            JOptionPane.showMessageDialog(null, "Cpf Inválido");
+        }
+        else {
+            
+            String cpf = jfmtCPF.getText();
+            cpf = cpf.replace(".", "");
+            cpf = cpf.replace("-", "");
+            
+            cliente = daoCliente.consultar(cpf);
+            
+            if (cliente == null) {
+             
+                btnIncluir.setEnabled(true);
+                jfmtCPF.setEnabled(false);
+                txtNome.setEnabled(true);
+                txtEndereco.setEnabled(true);
+                txtCidade.setEnabled(true);
+                cmbxUF.setEnabled(true);
+                txtDDD.setEnabled(true);
+                txtNumTel.setEnabled(true);
+                txtCEP.setEnabled(true);
+                txtLimCred.setEnabled(true);   
+                txtNome.requestFocus();
+            }
+            else {
+                btnConsultar.setEnabled(false);
+                
+                jfmtCPF.setEnabled(false);
+                txtNome.setText(cliente.getNome());
+                txtNome.requestFocus();
+                txtEndereco.setText(cliente.getEndereco());
+                txtCidade.setText(cliente.getCidade());
+                cmbxUF.setSelectedItem(cliente.getUf());
+                txtDDD.setText(cliente.getDdd());
+                txtNumTel.setText(cliente.getTelefone());
+                txtCEP.setText(cliente.getCep());
+                txtLimCred.setText(String.valueOf(cliente.getLimiteCred()));
+                lblLimDisp.setText(String.valueOf(cliente.getLimiteDisp()));
+                
+                txtNome.setEnabled(true);
+                txtEndereco.setEnabled(true);
+                txtCidade.setEnabled(true);
+                cmbxUF.setEnabled(true);
+                txtDDD.setEnabled(true);
+                txtNumTel.setEnabled(true);
+                txtCEP.setEnabled(true);
+                txtLimCred.setEnabled(true);
+                
+                
+                btnAlterar.setEnabled(true);
+                btnExcluir.setEnabled(true);
+                
+            }
+            
+        }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("system","753159");
+        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+        conexao.setConnectionString("jdbc:oracle:thin:@localhost:1521:xe");
+        daoCliente = new DaoCliente(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        String cpf = jfmtCPF.getText();
+        cpf = cpf.replace(".", "");
+        cpf = cpf.replace("-", "");
+        
+        cliente = new Cliente (cpf, txtNome.getText(), Double.parseDouble(txtLimCred.getText()));
+        cliente.setEndereco(txtEndereco.getText());
+        cliente.setCidade(txtCidade.getText());
+        cliente.setUf(String.valueOf(cmbxUF.getSelectedItem()));
+        cliente.setCep(txtCEP.getText());
+        cliente.setDdd(txtDDD.getText());
+        cliente.setTelefone(txtNumTel.getText());
+        
+        daoCliente.inserir(cliente);
+        
+        jfmtCPF.setText("");
+        txtNome.setText("");
+        txtLimCred.setText("");
+        txtEndereco.setText("");
+        txtCidade.setText("");
+        cmbxUF.setSelectedItem("");
+        txtCEP.setText("");
+        txtDDD.setText("");
+        txtNumTel.setText("");
+        lblLimDisp.setText("");
+        
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtCidade.setEnabled(false);
+        cmbxUF.setEnabled(false);
+        txtDDD.setEnabled(false);
+        txtNumTel.setEnabled(false);
+        txtCEP.setEnabled(false);
+        txtLimCred.setEnabled(false);
+        
+        jfmtCPF.setEnabled(true);
+        jfmtCPF.requestFocus();
+        
+        btnConsultar.setEnabled(true);
+        btnIncluir.setEnabled(false);
+    }//GEN-LAST:event_btnIncluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+         if (JOptionPane.showConfirmDialog(null, "Confirmar Alteração ?") == 0) {
+            
+            cliente.setNome(txtNome.getText());
+            cliente.setEndereco(txtEndereco.getText());
+            cliente.setCidade(txtCidade.getText());
+            cliente.setCep(txtCEP.getText());
+            cliente.setUf(String.valueOf(cmbxUF.getSelectedItem()));
+            cliente.setCep(txtCEP.getText());
+            cliente.setDdd(txtDDD.getText());
+            cliente.setTelefone(txtNumTel.getText());
+             
+            daoCliente.alterar(cliente);
+        }
+         
+        jfmtCPF.setText("");
+        txtNome.setText("");
+        txtLimCred.setText("");
+        txtEndereco.setText("");
+        txtCidade.setText("");
+        cmbxUF.setSelectedItem("");
+        txtCEP.setText("");
+        txtDDD.setText("");
+        txtNumTel.setText("");
+        lblLimDisp.setText("");
+        
+        jfmtCPF.setEnabled(true);
+        txtNome.setEnabled(false);
+        txtLimCred.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtCidade.setEnabled(false);
+        cmbxUF.setEnabled(false);
+        txtCEP.setEnabled(false);
+        txtDDD.setEnabled(false);
+        txtNumTel.setEnabled(false);
+        
+        jfmtCPF.requestFocus();
+        
+        btnConsultar.setEnabled(true);
+        btnIncluir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0){
+            daoCliente.excluir(cliente); 
+        }
+        
+        jfmtCPF.setText("");
+        txtNome.setText("");
+        txtLimCred.setText("");
+        txtEndereco.setText("");
+        txtCidade.setText("");
+        cmbxUF.setSelectedItem("");
+        txtCEP.setText("");
+        txtDDD.setText("");
+        txtNumTel.setText("");
+        lblLimDisp.setText("");
+        
+        jfmtCPF.setEnabled(true);
+        txtNome.setEnabled(false);
+        txtLimCred.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtCidade.setEnabled(false);
+        cmbxUF.setEnabled(false);
+        txtCEP.setEnabled(false);
+        txtDDD.setEnabled(false);
+        txtNumTel.setEnabled(false);
+        
+        jfmtCPF.requestFocus();
+        
+        btnConsultar.setEnabled(true);
+        btnIncluir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,4 +539,7 @@ public class GuiCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumTel;
     // End of variables declaration//GEN-END:variables
+private Cliente cliente = null;
+private DaoCliente daoCliente = null;
+private Conexao conexao = null;
 }
