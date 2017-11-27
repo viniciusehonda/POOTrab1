@@ -3,6 +3,7 @@ package fatec.poo.view;
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoProduto;
 import fatec.poo.model.Produto;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -233,7 +234,7 @@ public class GuiProduto extends javax.swing.JFrame {
             btnConsultar.setEnabled(false);
             btnAlterar.setEnabled(true);
             btnExcluir.setEnabled(true);
-            txtCodigo.setEditable(false);
+            txtCodigo.setEnabled(false);
             
             txtQtdeDisp.setEnabled(true);
             txtPrecoUnit.setEnabled(true);
@@ -260,9 +261,10 @@ public class GuiProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+ 
         produto = new Produto(Integer.parseInt(txtCodigo.getText()), txtDescricao.getText());
         produto.setEstoqueMin(Integer.parseInt(txtEstoqueMin.getText()));
-        produto.setPrecoUnit(Integer.parseInt(txtPrecoUnit.getText()));
+        produto.setPrecoUnit(Double.parseDouble(txtPrecoUnit.getText()));
         produto.setQtdeDisponivel(Integer.parseInt(txtQtdeDisp.getText()));
         
         daoProduto.inserir(produto);
@@ -288,7 +290,7 @@ public class GuiProduto extends javax.swing.JFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirmar Alteração ?") == 0) {
             produto.setEstoqueMin(Integer.parseInt(txtEstoqueMin.getText()));
-            produto.setPrecoUnit(Integer.parseInt(txtPrecoUnit.getText()));
+            produto.setPrecoUnit(Double.parseDouble(txtPrecoUnit.getText()));
             produto.setQtdeDisponivel(Integer.parseInt(txtQtdeDisp.getText()));
             
             daoProduto.alterar(produto);
@@ -325,12 +327,18 @@ public class GuiProduto extends javax.swing.JFrame {
         txtPrecoUnit.setEnabled(false);
         txtQtdeDisp.setEnabled(false);
         
-        txtCodigo.requestFocus();
+        txtCodigo.setText("");
+        txtDescricao.setText("");
+        txtEstoqueMin.setText("");
+        txtPrecoUnit.setText("");
+        txtQtdeDisp.setText("");
         
         btnConsultar.setEnabled(true);
         btnIncluir.setEnabled(false);
         btnAlterar.setEnabled(false);
-        btnExcluir.setEnabled(false);    
+        btnExcluir.setEnabled(false);  
+        
+        txtCodigo.requestFocus();
         
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -388,5 +396,7 @@ public class GuiProduto extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 private Produto produto = null;
 private DaoProduto daoProduto = null;
-private Conexao conexao = null;        
+private Conexao conexao = null;     
+DecimalFormat df = new DecimalFormat("#,##0,00");
+private double pco;
 }
