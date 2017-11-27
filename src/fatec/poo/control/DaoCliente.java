@@ -64,6 +64,7 @@ public class DaoCliente {
             
             ps.setString(10, cliente.getCpf());
             
+            ps.execute();
                     
         } catch (SQLException ex) {
             System.out.println(ex.toString());
@@ -83,7 +84,13 @@ public class DaoCliente {
             
             if (rs.next() == true) {
                 cl = new Cliente(Cpf, rs.getString("Nome_Cli"), rs.getDouble("LimCred_Cli"));
-            
+                cl.setEndereco(rs.getString("End_Cli"));
+                cl.setCidade(rs.getString("Cid_Cli"));
+                cl.setUf(rs.getString("Uf_Cli"));
+                cl.setCep(rs.getString("Cep_Cli"));
+                cl.setDdd(rs.getString("Ddd_Cli"));
+                cl.setTelefone(rs.getString("Tel_Cli"));
+                cl.setLimiteDisp(rs.getDouble("LimDisp_Cli"));
             }
         } 
             catch (SQLException ex){
