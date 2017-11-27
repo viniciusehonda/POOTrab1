@@ -9,7 +9,6 @@ import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoCliente;
 import fatec.poo.control.DaoProduto;
 import fatec.poo.functions.ValidaCPF;
-import fatec.poo.functions.VerificaCPF;
 import fatec.poo.model.Cliente;
 import java.text.ParseException;
 import javax.swing.JFormattedTextField;
@@ -287,8 +286,6 @@ public class GuiCliente extends javax.swing.JFrame {
         String cpf = jfmtCPF.getText();
         cpf = cpf.replace(".", "");
         cpf = cpf.replace("-", "");
-        //VerificaCPF Vcpf = new VerificaCPF(cpf);
-        String digitos;
         
         if(ValidaCPF.isCPF(cpf) == false) {
             valid = false;

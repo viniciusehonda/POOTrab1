@@ -7,7 +7,7 @@ package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoVendedor;
-import fatec.poo.functions.VerificaCPF;
+import fatec.poo.functions.ValidaCPF;
 import fatec.poo.model.Vendedor;
 import java.text.NumberFormat;
 import javax.swing.JOptionPane;
@@ -366,8 +366,8 @@ public class GuiVendedor extends javax.swing.JFrame {
         String cpf = jfmtCPF.getText();
         cpf = cpf.replace(".", "");
         cpf = cpf.replace("-", "");
-        verCPF = new VerificaCPF(cpf);
-        if(verCPF.validar() == false){
+        
+        if(ValidaCPF.isCPF(cpf) == false){
             JOptionPane.showMessageDialog(null, "CPF Inválido");
             jfmtCPF.requestFocus();
         }else{
@@ -621,5 +621,4 @@ public class GuiVendedor extends javax.swing.JFrame {
     private Vendedor vendedor= null;
     private DaoVendedor daoVendedor= null;
     private Conexao conexao = null;
-    private VerificaCPF verCPF = null;
 }
