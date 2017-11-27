@@ -49,11 +49,22 @@ public class DaoVendedor {
         PreparedStatement ps = null;
         
         try {
-            ps = conn.prepareStatement("UPDATE tbVendedor set Nome_Vend = ? "
+            ps = conn.prepareStatement("UPDATE tbVendedor set Nome_Vend = ?, "
+                    + "End_Vend = ?, Cid_Vend = ?, Uf_Vend = ?, Cep_Vend = ?, "
+                    + "Ddd_Vend = ?, Tel_Vend = ?, SalBase_Vend = ?, TaxaCom_Vend = ?"
                     + "where Cpf_Vend = ?");
             
             ps.setString(1, vendedor.getNome());
-            ps.setString(2, vendedor.getCpf());
+            ps.setString(2, vendedor.getEndereco());
+            ps.setString(3, vendedor.getCidade());
+            ps.setString(4, vendedor.getUf());
+            ps.setString(5, vendedor.getDdd());
+            ps.setString(6, vendedor.getTelefone());
+            ps.setString(7, vendedor.getCep());
+            ps.setDouble(8, vendedor.getSalarioBase());
+            ps.setDouble(9, vendedor.getComissao());
+            
+            ps.setString(10, vendedor.getCpf());
             
         } catch (SQLException ex) {
             System.out.println(ex.toString());
