@@ -375,6 +375,7 @@ public class GuiCliente extends javax.swing.JFrame {
         txtCEP.setText("");
         txtDDD.setText("");
         txtNumTel.setText("");
+        lblLimDisp.setText("");
         
         txtNome.setEnabled(false);
         txtEndereco.setEnabled(false);
@@ -387,8 +388,6 @@ public class GuiCliente extends javax.swing.JFrame {
         
         jfmtCPF.setEnabled(true);
         jfmtCPF.requestFocus();
-        
-        
         
         btnConsultar.setEnabled(true);
         btnIncluir.setEnabled(false);
@@ -418,6 +417,7 @@ public class GuiCliente extends javax.swing.JFrame {
         txtCEP.setText("");
         txtDDD.setText("");
         txtNumTel.setText("");
+        lblLimDisp.setText("");
         
         jfmtCPF.setEnabled(true);
         txtNome.setEnabled(false);
@@ -451,6 +451,7 @@ public class GuiCliente extends javax.swing.JFrame {
         txtCEP.setText("");
         txtDDD.setText("");
         txtNumTel.setText("");
+        lblLimDisp.setText("");
         
         jfmtCPF.setEnabled(true);
         txtNome.setEnabled(false);
