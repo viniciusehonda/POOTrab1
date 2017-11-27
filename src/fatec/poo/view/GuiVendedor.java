@@ -7,6 +7,7 @@ package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoVendedor;
+import fatec.poo.functions.VerificaCPF;
 import fatec.poo.model.Vendedor;
 import java.text.NumberFormat;
 import javax.swing.JOptionPane;
@@ -365,56 +366,57 @@ public class GuiVendedor extends javax.swing.JFrame {
         String cpf = jfmtCPF.getText();
         cpf = cpf.replace(".", "");
         cpf = cpf.replace("-", "");
-        //if(jfmtCPF.getText == INVALIDO){//Algoritmo de verificação do CPF
-        vendedor = daoVendedor.consultar(cpf);
-        if (vendedor == null){
-            btnConsultar.setEnabled(false);
-            btnIncluir.setEnabled(true);
-            
-            jfmtCPF.setEnabled(false);
-            
-            txtNome.setEnabled(true);
-            txtEndereco.setEnabled(true);
-            txtCidade.setEnabled(true);
-            cmbxUF.setEnabled(true);
-            txtCEP.setEnabled(true);
-            txtDDD.setEnabled(true);
-            txtTelefone.setEnabled(true);
-            txtSalBase.setEnabled(true);
-            txtTaxa.setEnabled(true);
-            txtNome.requestFocus();
+        verCPF = new VerificaCPF(cpf);
+        if(verCPF.validar() == false){
+            JOptionPane.showMessageDialog(null, "CPF Inválido");
+            jfmtCPF.requestFocus();
         }else{
-            txtNome.setText(vendedor.getNome());
-            txtEndereco.setText(vendedor.getEndereco());
-            txtCidade.setText(vendedor.getCidade());
-            cmbxUF.setSelectedItem(vendedor.getUf());
-            txtCEP.setText(vendedor.getCep());
-            txtDDD.setText(vendedor.getDdd());
-            txtTelefone.setText(vendedor.getTelefone());
-            txtSalBase.setText(String.valueOf(vendedor.getSalarioBase()));
-            txtTaxa.setText(String.valueOf(vendedor.getComissao()));
-            
-            btnConsultar.setEnabled(false);
-            btnAlterar.setEnabled(true);
-            btnExcluir.setEnabled(true);
-            
-            jfmtCPF.setEnabled(false);
-            
-            txtNome.setEnabled(true);
-            txtEndereco.setEnabled(true);
-            txtCidade.setEnabled(true);
-            cmbxUF.setEnabled(true);
-            txtCEP.setEnabled(true);
-            txtDDD.setEnabled(true);
-            txtTelefone.setEnabled(true);
-            txtSalBase.setEnabled(true);
-            txtTaxa.setEnabled(true);
-            txtNome.requestFocus();
+            vendedor = daoVendedor.consultar(cpf);
+            if (vendedor == null){
+                btnConsultar.setEnabled(false);
+                btnIncluir.setEnabled(true);
+
+                jfmtCPF.setEnabled(false);
+
+                txtNome.setEnabled(true);
+                txtEndereco.setEnabled(true);
+                txtCidade.setEnabled(true);
+                cmbxUF.setEnabled(true);
+                txtCEP.setEnabled(true);
+                txtDDD.setEnabled(true);
+                txtTelefone.setEnabled(true);
+                txtSalBase.setEnabled(true);
+                txtTaxa.setEnabled(true);
+                txtNome.requestFocus();
+            }else{
+                txtNome.setText(vendedor.getNome());
+                txtEndereco.setText(vendedor.getEndereco());
+                txtCidade.setText(vendedor.getCidade());
+                cmbxUF.setSelectedItem(vendedor.getUf());
+                txtCEP.setText(vendedor.getCep());
+                txtDDD.setText(vendedor.getDdd());
+                txtTelefone.setText(vendedor.getTelefone());
+                txtSalBase.setText(String.valueOf(vendedor.getSalarioBase()));
+                txtTaxa.setText(String.valueOf(vendedor.getComissao()));
+
+                btnConsultar.setEnabled(false);
+                btnAlterar.setEnabled(true);
+                btnExcluir.setEnabled(true);
+
+                jfmtCPF.setEnabled(false);
+
+                txtNome.setEnabled(true);
+                txtEndereco.setEnabled(true);
+                txtCidade.setEnabled(true);
+                cmbxUF.setEnabled(true);
+                txtCEP.setEnabled(true);
+                txtDDD.setEnabled(true);
+                txtTelefone.setEnabled(true);
+                txtSalBase.setEnabled(true);
+                txtTaxa.setEnabled(true);
+                txtNome.requestFocus();
+            }
         }
-        //}else{
-        //JOptionPane.showMessageDialog(null, "CPF Inválido");
-        //jfmtCPF.requestFocus();
-        //}
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
@@ -619,4 +621,5 @@ public class GuiVendedor extends javax.swing.JFrame {
     private Vendedor vendedor= null;
     private DaoVendedor daoVendedor= null;
     private Conexao conexao = null;
+    private VerificaCPF verCPF = null;
 }
