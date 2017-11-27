@@ -17,6 +17,14 @@ public class Cliente extends Pessoa{
         this.limiteCred = limiteCred;
         limiteDisp = limiteCred;
     }
+
+    public void setNome(String nome) {
+        super.setNome(nome);
+    }
+    
+    public void setLimiteCred(double limiteCred) {
+        this.limiteCred = limiteCred;
+    }
     
     public void addPedido(Pedido pedido){
         pedidos.add(pedido);
