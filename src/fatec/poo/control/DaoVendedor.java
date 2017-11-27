@@ -58,9 +58,9 @@ public class DaoVendedor {
             ps.setString(2, vendedor.getEndereco());
             ps.setString(3, vendedor.getCidade());
             ps.setString(4, vendedor.getUf());
-            ps.setString(5, vendedor.getDdd());
-            ps.setString(6, vendedor.getTelefone());
-            ps.setString(7, vendedor.getCep());
+            ps.setString(5, vendedor.getCep());
+            ps.setString(6, vendedor.getDdd());
+            ps.setString(7, vendedor.getTelefone());
             ps.setDouble(8, vendedor.getSalarioBase());
             ps.setDouble(9, vendedor.getComissao());
             
@@ -84,6 +84,14 @@ public class DaoVendedor {
             
             if (rs.next() == true) {
                 vd = new Vendedor(Cpf, rs.getString("Nome_Vend"), rs.getDouble("SalBase_Vend"));
+                vd.setEndereco(rs.getString("End_Vend"));
+                vd.setCep(rs.getString("Cep_Vend"));
+                vd.setCidade(rs.getString("Cid_Vend"));
+                vd.setUf(rs.getString("Uf_Vend"));
+                vd.setDdd(rs.getString("Ddd_Vend"));
+                vd.setTelefone(rs.getString("Tel_Vend"));
+                vd.setSalarioBase(rs.getDouble("SalBase_Vend"));
+                vd.setComissao(rs.getDouble("TaxaCom_Vend"));
             }
             
         } catch (SQLException ex){
