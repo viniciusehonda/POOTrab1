@@ -397,6 +397,4 @@ public class GuiProduto extends javax.swing.JFrame {
 private Produto produto = null;
 private DaoProduto daoProduto = null;
 private Conexao conexao = null;     
-DecimalFormat df = new DecimalFormat("#,##0,00");
-private double pco;
 }
