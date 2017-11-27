@@ -8,6 +8,8 @@ package fatec.poo.view;
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoVendedor;
 import fatec.poo.model.Vendedor;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -358,10 +360,11 @@ public class GuiVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTaxaActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        //JOptionPane.showMessageDialog(null,jfmtCPF.getText);//SUBSTITUIR
+        String cpf = jfmtCPF.getText();
+        cpf = cpf.replace(".", "");
+        cpf = cpf.replace("-", "");
         //if(jfmtCPF.getText == INVALIDO){//Algoritmo de verificação do CPF
-        
-        vendedor = daoVendedor.consultar(jfmtCPF.getText());//SUBSTITUIR
+        vendedor = daoVendedor.consultar(cpf);
         if (vendedor == null){
             btnConsultar.setEnabled(false);
             btnIncluir.setEnabled(true);
@@ -413,10 +416,13 @@ public class GuiVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        vendedor = new Vendedor(jfmtCPF.getText(), txtNome.getText(), Double.parseDouble(txtSalBase.getText()));//SUBSTITUIR
+        String cpf = jfmtCPF.getText();
+        cpf = cpf.replace(".", "");
+        cpf = cpf.replace("-", "");
+        vendedor = new Vendedor(cpf, txtNome.getText(), Double.parseDouble(txtSalBase.getText()));
         vendedor.setEndereco(txtEndereco.getText());
         vendedor.setCidade(txtCidade.getText());
-        vendedor.setUf(cmbxUF.getItemAt(cmbxUF.getSelectedIndex()));//ATENÇÃO
+        vendedor.setUf(cmbxUF.getItemAt(cmbxUF.getSelectedIndex()));
         vendedor.setCep(txtCEP.getText());
         vendedor.setDdd(txtDDD.getText());
         vendedor.setTelefone(txtTelefone.getText());
@@ -424,12 +430,12 @@ public class GuiVendedor extends javax.swing.JFrame {
         
         daoVendedor.inserir(vendedor);
         
-        jfmtCPF.setText("");//ATENÇÃO
+        jfmtCPF.setText("");
         
         txtNome.setText("");
         txtEndereco.setText("");
         txtCidade.setText("");
-        cmbxUF.setSelectedItem("");//ATENÇÃO
+        cmbxUF.setSelectedItem("");
         txtCEP.setText("");
         txtDDD.setText("");
         txtTelefone.setText("");
@@ -454,7 +460,10 @@ public class GuiVendedor extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if(JOptionPane.showConfirmDialog(null, "Confirmar alteração?") == 0){
-            vendedor = new Vendedor(jfmtCPF.getText(), txtNome.getText(), Double.parseDouble(txtSalBase.getText()));//SUBSTITUIR
+            String cpf = jfmtCPF.getText();
+            cpf = cpf.replace(".", "");
+            cpf = cpf.replace("-", "");
+            vendedor = new Vendedor(cpf, txtNome.getText(), Double.parseDouble(txtSalBase.getText()));//DECLARAR SETs
             vendedor.setEndereco(txtEndereco.getText());
             vendedor.setCidade(txtCidade.getText());
             vendedor.setUf(cmbxUF.getItemAt(cmbxUF.getSelectedIndex()));//ATENÇÃO
