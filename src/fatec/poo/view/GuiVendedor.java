@@ -8,8 +8,7 @@ package fatec.poo.view;
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoVendedor;
 import fatec.poo.model.Vendedor;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -230,20 +229,20 @@ public class GuiVendedor extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtTaxa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtDDD, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtTaxa)))
                                 .addGap(52, 52, 52))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -264,8 +263,9 @@ public class GuiVendedor extends javax.swing.JFrame {
                                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtSalBase, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtSalBase, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(296, 296, 296)))
                         .addContainerGap(52, Short.MAX_VALUE))))
         );
 
@@ -315,6 +315,8 @@ public class GuiVendedor extends javax.swing.JFrame {
                     .addComponent(btnSair))
                 .addGap(37, 37, 37))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtDDD, txtTelefone});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -385,7 +387,7 @@ public class GuiVendedor extends javax.swing.JFrame {
             txtNome.setText(vendedor.getNome());
             txtEndereco.setText(vendedor.getEndereco());
             txtCidade.setText(vendedor.getCidade());
-            cmbxUF.setSelectedItem(vendedor.getUf());//ATENÇÃO!!!
+            cmbxUF.setSelectedItem(vendedor.getUf());
             txtCEP.setText(vendedor.getCep());
             txtDDD.setText(vendedor.getDdd());
             txtTelefone.setText(vendedor.getTelefone());
@@ -460,10 +462,9 @@ public class GuiVendedor extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if(JOptionPane.showConfirmDialog(null, "Confirmar alteração?") == 0){
-            String cpf = jfmtCPF.getText();
-            cpf = cpf.replace(".", "");
-            cpf = cpf.replace("-", "");
-            vendedor = new Vendedor(cpf, txtNome.getText(), Double.parseDouble(txtSalBase.getText()));//DECLARAR SETs
+            vendedor.setNome(txtNome.getText());
+            
+            vendedor.setSalarioBase(Double.parseDouble(txtSalBase.getText()));
             vendedor.setEndereco(txtEndereco.getText());
             vendedor.setCidade(txtCidade.getText());
             vendedor.setUf(cmbxUF.getItemAt(cmbxUF.getSelectedIndex()));//ATENÇÃO
@@ -473,71 +474,69 @@ public class GuiVendedor extends javax.swing.JFrame {
             vendedor.setComissao(Double.parseDouble(txtTaxa.getText()));
             
             daoVendedor.alterar(vendedor);
-            
-            jfmtCPF.setText("");//ATENÇÃO
-        
-            txtNome.setText("");
-            txtEndereco.setText("");
-            txtCidade.setText("");
-            cmbxUF.setSelectedItem("");//ATENÇÃO!!!
-            txtCEP.setText("");
-            txtDDD.setText("");
-            txtTelefone.setText("");
-            txtSalBase.setText("");
-            txtTaxa.setText("");
-
-            btnConsultar.setEnabled(true);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-
-            jfmtCPF.setEnabled(true);
-
-            txtNome.setEnabled(false);
-            txtEndereco.setEnabled(false);
-            txtCidade.setEnabled(false);
-            cmbxUF.setEnabled(false);
-            txtCEP.setEnabled(false);
-            txtDDD.setEnabled(false);
-            txtTelefone.setEnabled(false);
-            txtSalBase.setEnabled(false);
-            txtTaxa.setEnabled(false);
-            jfmtCPF.requestFocus();
         }
+        jfmtCPF.setText("");
+
+        txtNome.setText("");
+        txtEndereco.setText("");
+        txtCidade.setText("");
+        cmbxUF.setSelectedItem("");
+        txtCEP.setText("");
+        txtDDD.setText("");
+        txtTelefone.setText("");
+        txtSalBase.setText("");
+        txtTaxa.setText("");
+
+        btnConsultar.setEnabled(true);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+
+        jfmtCPF.setEnabled(true);
+
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtCidade.setEnabled(false);
+        cmbxUF.setEnabled(false);
+        txtCEP.setEnabled(false);
+        txtDDD.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtSalBase.setEnabled(false);
+        txtTaxa.setEnabled(false);
+        jfmtCPF.requestFocus();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if(JOptionPane.showConfirmDialog(null, "Confirma a exclusão?") == 0){
             daoVendedor.excluir(vendedor);
-            
-            jfmtCPF.setText("");//ATENÇÃO
-        
-            txtNome.setText("");
-            txtEndereco.setText("");
-            txtCidade.setText("");
-            cmbxUF.setSelectedItem("");//ATENÇÃO!!!
-            txtCEP.setText("");
-            txtDDD.setText("");
-            txtTelefone.setText("");
-            txtSalBase.setText("");
-            txtTaxa.setText("");
-
-            btnConsultar.setEnabled(true);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-
-            jfmtCPF.setEnabled(true);
-
-            txtNome.setEnabled(false);
-            txtEndereco.setEnabled(false);
-            txtCidade.setEnabled(false);
-            cmbxUF.setEnabled(false);
-            txtCEP.setEnabled(false);
-            txtDDD.setEnabled(false);
-            txtTelefone.setEnabled(false);
-            txtSalBase.setEnabled(false);
-            txtTaxa.setEnabled(false);
-            jfmtCPF.requestFocus();
         }
+        jfmtCPF.setText("");
+
+        txtNome.setText("");
+        txtEndereco.setText("");
+        txtCidade.setText("");
+        cmbxUF.setSelectedItem("");
+        txtCEP.setText("");
+        txtDDD.setText("");
+        txtTelefone.setText("");
+        txtSalBase.setText("");
+        txtTaxa.setText("");
+
+        btnConsultar.setEnabled(true);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+
+        jfmtCPF.setEnabled(true);
+
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtCidade.setEnabled(false);
+        cmbxUF.setEnabled(false);
+        txtCEP.setEnabled(false);
+        txtDDD.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtSalBase.setEnabled(false);
+        txtTaxa.setEnabled(false);
+        jfmtCPF.requestFocus();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed

@@ -26,7 +26,7 @@ public class Vendedor extends Pessoa{
     }
 
     public double getComissao() {
-        return comissao;
+        return comissao * 100;
     }
 
     public void setComissao(double comissao) {
