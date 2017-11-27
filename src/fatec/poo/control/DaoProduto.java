@@ -21,9 +21,9 @@ public class DaoProduto {
         PreparedStatement ps = null;
         
         try {
-            ps = conn.prepareStatement("INSERT into tbProduto("
-                    + "Cod_Prod, Desc_Prod, Qtd_Prod, Pco_Prod, MinEst_Prod) "
-                    + "VALUES(?,?,?,?,?");
+            ps = conn.prepareStatement("INSERT into tbProduto(Cod_Prod, Desc_Prod, "
+                    + " Qtd_Prod, Pco_Prod, MinEst_Prod) "
+                    + "VALUES(?,?,?,?,?)");
             ps.setInt(1, produto.getCodigo());
             ps.setString(2, produto.getDescricao());
             ps.setInt(3, produto.getQtdeDisponivel());
@@ -41,36 +41,38 @@ public class DaoProduto {
         PreparedStatement ps = null;
         
         try {
-            ps = conn.prepareStatement("UPDATE tbProduto set Qtde_Prod = ?, Pco_Prod = ?, MinEst_Prod = ? "
-                    + "where Cod_Prod = ? ");
+            ps = conn.prepareStatement("UPDATE tbProduto set Qtd_Prod = ?, Pco_Prod = ?,"
+                    + "MinEst_Prod = ?"
+                    + " where Cod_Prod = ? ");
             
             ps.setInt(1, produto.getQtdeDisponivel());
             ps.setDouble(2, produto.getPrecoUnit());
             ps.setInt(3, produto.getEstoqueMin());
             ps.setInt(4, produto.getCodigo());
             
+            ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
     }
     
-    public Produto consultar (int Codigo) {
+    public Produto consultar (int codigo) {
         Produto p = null;
         
         PreparedStatement ps = null;
         
         try {
             ps = conn.prepareStatement("SELECT * from tbProduto where Cod_Prod = ?");
-            
-            ps.setInt(1, Codigo);
+          
+            ps.setInt(1, codigo);
             
             ResultSet rs = ps.executeQuery();
             
             if (rs.next() == true) {
-                p = new Produto(Codigo, rs.getString("Desc_Prod"));
-                p.setEstoqueMin(rs.getInt("MinEst_Prod"));
+                p = new Produto (codigo, rs.getString("Desc_Prod"));
+                p.setQtdeDisponivel(rs.getInt("Qtd_Prod"));
                 p.setPrecoUnit(rs.getDouble("Pco_Prod"));
-                p.setQtdeDisponivel(rs.getInt("Qtde_Prod"));
+                p.setEstoqueMin(rs.getInt("MinEst_Prod"));
             }
         } catch (SQLException ex){
             System.out.println(ex.toString());
@@ -82,7 +84,7 @@ public class DaoProduto {
         PreparedStatement ps = null;
         
         try {
-            ps = conn.prepareStatement("DELETE from tbProduto where Cod_Prod");
+            ps = conn.prepareStatement("DELETE from tbProduto where Cod_Prod = ?");
             
             ps.setInt(1, produto.getCodigo());
             ps.execute();
